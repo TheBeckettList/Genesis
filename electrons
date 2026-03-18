@@ -1,0 +1,24 @@
+import numpy as np
+
+# --- THE STRESS TEST: ELECTRON g-2 ---
+# Experimental Target (Extreme Precision)
+TARGET_A_E = 0.00115965218 
+ALPHA = 1 / 137.035999139
+
+def run_electron_fail_test():
+    nodes = 24
+    crossings = 3  # Trefoil Knot (The Electron's hypothesized topology)
+    
+    order_1 = ALPHA / (2 * np.pi)
+    topo_correction = (crossings / nodes)**2 * (ALPHA**2 / (np.pi**2))
+    
+    a_e_calc = order_1 + topo_correction
+    accuracy = 100 - abs(a_e_calc - TARGET_A_E)/TARGET_A_E * 100
+    
+    print("--- 01/10 ELECTRON STRESS TEST ---")
+    print(f"Experimental: {TARGET_A_E:.11f}")
+    print(f"Substrate:    {a_e_calc:.11f}")
+    print(f"Correlation:  {accuracy:.6f}%")
+    print(f"Residual Gap: {TARGET_A_E - a_e_calc:.11f}")
+
+run_electron_fail_test()
